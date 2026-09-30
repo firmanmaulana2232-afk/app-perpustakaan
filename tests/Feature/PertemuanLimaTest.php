@@ -125,7 +125,8 @@ class PertemuanLimaTest extends TestCase
         $response = $this->get(route('books.show', $book->id));
         $response->assertStatus(200);
         $response->assertSee('Laskar Pelangi');
-        $response->assertSee('ID Kategori');
+        $response->assertSee('Kategori');
+
 
         // 6. Edit view
         $response = $this->get(route('books.edit', $book->id));

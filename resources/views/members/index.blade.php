@@ -1,26 +1,12 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <title>Daftar Anggota</title>
-    <style>
-        body { font-family: sans-serif; margin: 40px; }
-        table { border-collapse: collapse; width: 100%; margin-top: 16px; }
-        th, td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
-        .success { background: #d1fae5; color: #065f46; padding: 10px 14px; border-radius: 4px; margin-top: 16px; }
-        .btn { display: inline-block; padding: 6px 14px; background: #2563eb; color: #fff; text-decoration: none; border-radius: 4px; }
-        form.inline { display: inline; }
-    </style>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('title', 'Daftar Anggota')
+
+@section('content')
     <h1>Daftar Anggota</h1>
 
-    @if (session('success'))
-        <div class="success">{{ session('success') }}</div>
-    @endif
-
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-        <a href="{{ route('members.create') }}" class="btn">+ Tambah Anggota</a>
+        <p style="margin: 0;"><a href="{{ route('members.create') }}" class="btn">+ Tambah Anggota</a></p>
 
         <form action="{{ route('members.index') }}" method="GET" style="margin: 0;">
             <input type="text" name="search" placeholder="Cari nama anggota..." value="{{ request('search') }}" style="padding: 6px 10px; width: 220px;">
@@ -39,7 +25,6 @@
                 <th>NIM</th>
                 <th>Email</th>
                 <th>No. Telepon</th>
-                <th>Alamat</th>
                 <th>Status</th>
                 <th>Aksi</th>
             </tr>
@@ -52,7 +37,6 @@
                     <td>{{ $member['nim'] }}</td>
                     <td>{{ $member['email'] }}</td>
                     <td>{{ $member['nomor_telepon'] }}</td>
-                    <td>{{ $member['alamat'] ?? '-' }}</td>
                     <td>{{ ucfirst($member['status']) }}</td>
                     <td>
                         <a href="{{ route('members.show', $member['id']) }}">Detail</a>
@@ -68,12 +52,11 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="8">Belum ada data anggota.</td>
+                    <td colspan="7">Belum ada data anggota.</td>
                 </tr>
             @endforelse
         </tbody>
     </table>
 
     {{ $members->appends(request()->query())->links() }}
-</body>
-</html>
+@endsection
