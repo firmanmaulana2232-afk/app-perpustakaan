@@ -20,5 +20,14 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CategorySeeder::class,
         ]);
+
+        if (User::count() === 0) {
+            User::create([
+                'name' => 'Petugas Perpustakaan',
+                'email' => 'petugas@perpus.id',
+                'password' => bcrypt('password'),
+                'role' => 'petugas',
+            ]);
+        }
     }
 }
